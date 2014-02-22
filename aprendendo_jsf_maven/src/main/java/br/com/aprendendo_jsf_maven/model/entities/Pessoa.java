@@ -10,12 +10,16 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.ForeignKey;
+import org.hibernate.annotations.ManyToAny;
 
 /**
  *
@@ -57,6 +61,10 @@ public class Pessoa implements Serializable{
     @Column (name = "dataDeCadastro")
     private Date dataDeCadastro;
 
+    @ManyToOne (optional = false)
+    @ForeignKey (name = "PessoaSexo")
+    private Sexo sexo;
+    
     //Getters e Setters
     public Integer getIdPessoa() {
         return idPessoa;
@@ -115,6 +123,14 @@ public class Pessoa implements Serializable{
     }
     
     // Fim dos getters e setters
+
+    public Sexo getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
+    }
     
     
     
