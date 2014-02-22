@@ -14,7 +14,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -60,9 +62,15 @@ public class Pessoa implements Serializable{
     @Temporal (TemporalType.DATE)
     @Column (name = "dataDeCadastro")
     private Date dataDeCadastro;
-
+    
+    @OneToOne (mappedBy = "Pessoa" , fetch = FetchType.LAZY)
+    @ForeignKey (name = "EnderecoPessoa")
+    private Endereco endereco;
+    
+    
     @ManyToOne (optional = false)
     @ForeignKey (name = "PessoaSexo")
+    @JoinColumn (name = "idSexo" , referencedColumnName = "idSexo")
     private Sexo sexo;
     
     //Getters e Setters
@@ -122,7 +130,7 @@ public class Pessoa implements Serializable{
         this.dataDeCadastro = dataDeCadastro;
     }
     
-    // Fim dos getters e setters
+    
 
     public Sexo getSexo() {
         return sexo;
@@ -131,8 +139,17 @@ public class Pessoa implements Serializable{
     public void setSexo(Sexo sexo) {
         this.sexo = sexo;
     }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
     
     
+    // Fim dos getters e setters
     
     @Override
     public int hashCode() {
